@@ -12,5 +12,3 @@ class ContactList():
         if len(number) != 0:
             number = number[0][1:]
             self.add(number)
-
-    # Newest
