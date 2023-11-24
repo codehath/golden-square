@@ -1,10 +1,9 @@
-
 import pytest
 from lib.dish import *
 
 def test_constructor():
     item = Dish("Curry", 5.50)
-    assert item.name == "Curry"
+    assert item.dish_name == "Curry"
     assert item.price == 5.5
 
 def test_price_not_number():

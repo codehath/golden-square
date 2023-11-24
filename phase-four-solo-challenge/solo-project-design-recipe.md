@@ -1,4 +1,4 @@
-# {{PROBLEM}} Multi-Class Planned Design Recipe
+# Food Ordering System Design Recipe
 
 ## 1. Describe the Problem
 
@@ -24,12 +24,7 @@ mocks too.
 
 ## 2. Design the Class System
 
-```
-See miro board
-```
-``
 ```python
-
 class OrderSystem:
 
     def __init__(self):
@@ -82,9 +77,6 @@ class Menu:
     def display_menu(self):
         # Returns
         #   A list of strings in format "Dish Name - Price"
-
-
-
 
 ```
 ## 3. Create Examples as Integration Tests

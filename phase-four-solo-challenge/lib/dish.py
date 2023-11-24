@@ -1,6 +1,6 @@
 class Dish():
     def __init__(self, name, price):
-        self.name = name
+        self.dish_name = name
         if isinstance(price, (int, float)):
             self.price = price
         else:
