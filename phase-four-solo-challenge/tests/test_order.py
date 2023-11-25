@@ -2,6 +2,11 @@ import pytest
 from unittest.mock import Mock
 from lib.order import *
 
+def test_order_constructor_empty_order():
+    new_order = Order({})
+    assert new_order.dishes_ordered == {}
+    assert new_order.order_placed == False
+
 def test_order_constructor():
     dish_1 =  Mock(dish_name = "Curry", price = 5.50)
     dish_2 =  Mock(dish_name = "Rice", price = 3.75)
@@ -34,3 +39,12 @@ def test_order_receipt_multiple_items():
 #         item = Dish("Curry", "five")
 #     error_message = str(e.value)
 #     assert error_message == "Invalid price, must be a number!"
+
+# # The Order constructor raises an error when the quantity of a dish is invalid.
+# def test_order_constructor_invalid_dish_quantity():
+#     with pytest.raises(TypeError) as e:
+#         dish_1 = Mock(dish_name="Curry", price=5.50)
+#         dishes_ordered = {dish_1: "three"}
+#         new_order = Order(dishes_ordered)
+#     error_message = str(e.value)
+#     assert error_message == "Invalid quantity, must be a number!"

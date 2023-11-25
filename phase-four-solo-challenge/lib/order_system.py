@@ -14,16 +14,10 @@ class OrderSystem():
         with open('twilio_credentials.json') as f:
             twilio_credentials = json.load(f)
 
-        
         # Extract credentials
         account_sid = twilio_credentials["account_sid"]
         auth_token = twilio_credentials["auth_token"]
         self.twilio_phone_number = twilio_credentials["twilio_phone_number"]
-
-        print(account_sid)
-        print(auth_token)
-        print(self.twilio_phone_number)
-
 
         # Create a Twilio client
         self.client = Client(account_sid, auth_token)
@@ -38,11 +32,14 @@ class OrderSystem():
         order = {}
 
         while order_finished == False:
-            print("What would you like to order?/n Enter x when you are done." )
+            print("What would you like to order?\nEnter x when you are done." )
             menu_item_input = input("Select Menu Item: ")
-            quantity_input = input(f"How many would you like: ")
-            
-            if menu_item_input == "x" or quantity_input == "x":
+            if menu_item_input == "x":
+                order_finished = True
+                break
+
+            quantity_input = input("How many would you like: ")
+            if quantity_input == "x":
                 order_finished = True
             else:
                 dish = self.menu.all_dishes[int(menu_item_input) - 1]
@@ -74,3 +71,31 @@ class OrderSystem():
         order.receipt()
         self.order_placed_text()
         order.order_placed = True
+
+
+
+# Mock the menu object
+dish_1 =  Mock(dish_name = "Curry", price = 5.50)
+dish_2 =  Mock(dish_name = "Pasta", price = 6.99)
+dish_3 =  Mock(dish_name = "Rice", price = 3.75)
+dish_4 =  Mock(dish_name = "Noodle", price = 5.50)
+dish_5 =  Mock(dish_name = "Sirloin Steak", price = 37)
+dish_6 =  Mock(dish_name = "Chicken Fajitas", price = 9.20)
+menu_items = [dish_1, dish_2, dish_3, dish_4, dish_5, dish_6]
+# menu_mock = Mock(spec = Menu)
+menu_mock = Mock(all_dishes = menu_items)
+
+# Usage
+# =====
+# import requests
+# activity_suggester = ActivitySuggester(requests)
+# activity_suggester.suggest() # => "Why not: Learn how to use a french press"
+# activity_suggester.suggest() # => "Why not: Hold a video game tournament with some friends"
+
+# Usage
+# =====
+# import requests
+system = OrderSystem(menu_mock)
+system.run()
+# activity_suggester.suggest() # => "Why not: Learn how to use a french press"
+# activity_suggester.suggest() # => "Why not: Hold a video game tournament with some friends"
