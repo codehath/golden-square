@@ -6,9 +6,9 @@ class Menu():
     
     def display_menu(self):
         itemised_menu = []
+        menu_item = 0
         for dish in self.all_dishes:
-            itemised_menu.append(f"{dish.dish_name} - {dish.price:.2f}")
+            menu_item += 1
+            itemised_menu.append(f"{menu_item} - {dish.dish_name} - {dish.price:.2f}")
             print(itemised_menu[-1])
         return itemised_menu
-
-    
