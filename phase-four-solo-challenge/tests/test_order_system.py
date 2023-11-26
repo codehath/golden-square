@@ -1,5 +1,9 @@
 from unittest.mock import Mock, patch
 from lib.order_system import *
+import unittest
+import pytest
+import sys
+from io import StringIO
 
 
 # Mock the menu object
@@ -29,6 +33,11 @@ client_mock = Mock()
 
 #     assert system.menu == the_menu
 
+@unittest.skip
+def test_order_system_integration_make_order():
+    the_menu = Menu(menu_items)
+    system = OrderSystem(the_menu)
+    system.run()
 
 @patch('builtins.input', side_effect=['1', '2', 'x']) # Mock input
 def test_take_order(mock_input):
@@ -44,8 +53,46 @@ def test_take_order(mock_input):
     assert actual == expected
 
 
+# User enters x for menu item input before selecting any items
+@patch('builtins.input', side_effect=['x']) # Mock input
+def test_take_order_x_menu(mock_input):
+    # Instantiate OrderSystem with Menu mock
+    system = OrderSystem(menu_mock)    
+
+    # Call the take_order method
+    order = system.take_order()
+
+    # Assert that the order is correct
+    expected = {}
+    actual = order.dishes_ordered
+    assert actual == expected
 
 
+def test_order_placed_text():
+    # Instantiate OrderSystem with Menu mock
+    system = OrderSystem(menu_mock)    
+
+    sys.stdout = StringIO()
+    # Call the take_order method
+    order = system.order_placed_text()
+
+
+    # Assert that the text message is correct
+    expected = sys.stdout.getvalue().strip()
+    actual = f"Thank you! Your order was placed and will be delivered before {(datetime.now() + timedelta(minutes=45)).strftime('%H:%M')}"
+    assert actual == expected
+
+
+# def test_place_order():
+#     # Instantiate OrderSystem with Menu mock
+#     system = OrderSystem(menu_mock)
+
+#     order_mock = Mock(spec = Order) 
+
+#     print("placed:", order_mock.order_placed)
+#     print("dished ordered", order_mock.dishes_ordered)
+
+#     system.place_order(order_mock)
 
 # import io
 # import sys
